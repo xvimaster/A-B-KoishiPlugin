@@ -41,7 +41,7 @@ export function apply(ctx: Context) {
       var isREnd=0 
       
     
-      while(process<=commandCount && antiDeadLoop<100){
+      while(process<=commandCount && antiDeadLoop<1000){
         
         nowCommand=commands[process]
         if(nowCommand!="NULL"){
@@ -91,7 +91,7 @@ export function apply(ctx: Context) {
           
           //---DEBUG---
           console.info(nowCommand)
-          console.info(replaceMark)
+          console.info(A2BString.length)
           console.info("---")
           //---DEBUG---*/
 
@@ -124,16 +124,18 @@ export function apply(ctx: Context) {
               process=1;
               antiDeadLoop++;
             }
-
+            if (A2BString.length>255) return "输出大于255个字符。请检查潜在的死循环"
           }else{
+            if (A2BString.length>255) return "输出大于255个字符。请检查潜在的死循环"
             process++; //move to next command
           }
         }else{
           process++;  //move to the next command while the command is neutrialized
         }
       }
+      if (antiDeadLoop>=999) return "运行超过1000行程序，请检查死循环！"
       if (A2BString.length==0) return "程序无输出"
-      if (A2BString.length>255) return "输出大于255个字符或处理大于1000步。请检查潜在的死循环"
+      if (A2BString.length>255) return "输出大于255个字符。请检查潜在的死循环"
       return A2BString
 
     } else {
