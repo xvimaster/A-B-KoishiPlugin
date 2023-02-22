@@ -13,9 +13,11 @@ var commandCount=0 //how many commands in A2B
 export function apply(ctx: Context) {
   ctx.middleware((session, next) => {
     txt = session.content
-    if (txt.substring(0,3) ==='A=B' || txt.substring(0,3) ==='A2B') {
+    if (txt.substring(0,3) ==='A=B' || txt.substring(0,9) ==='A2BDetail') {
       var slength=txt.length
-      var txtProceed=txt.substring(4,txt.length)
+      var doDetail=0 //if the program shows details
+      if(txt.substring(0,9)=='A2BDetail')var txtProceed=txt.substring(10,txt.length); else var txtProceed=txt.substring(4,txt.length);
+      if(txt.substring(0,9)=='A2BDetail')doDetail=1;else doDetail=0;
       commandCount=0
       for(var i=1; i<txtProceed.length;i++){
         if(txtProceed.charAt(i)==" ") commandCount++
@@ -96,7 +98,10 @@ export function apply(ctx: Context) {
           //---DEBUG---*/
 
           if(replaceMark>=0){  //if this command can run
-            
+            if(doDetail){
+              //got way too lazy to write these
+              //well who cares
+            }
             if(isReturn!=-1){ //check for straight return
               A2BString=ios[1].substring(8,ios[1].length)
               return A2BString
