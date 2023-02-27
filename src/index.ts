@@ -104,6 +104,7 @@ export function apply(ctx: Context) {
             }
             if(isReturn!=-1){ //check for straight return
               A2BString=ios[1].substring(8,ios[1].length)
+              A2BString="the program returns:" + A2BString
               return A2BString
             }else if(isRStart!=-1){
               ios[1]=ios[1].substring(7,ios[1].length)
@@ -141,6 +142,7 @@ export function apply(ctx: Context) {
       if (antiDeadLoop>=999) return "运行超过1000行程序，请检查死循环！"
       if (A2BString.length==0) return "程序无输出"
       if (A2BString.length>255) return "输出大于255个字符。请检查潜在的死循环"
+      A2BString="the program returns:" + A2BString
       return A2BString
 
     } else {
